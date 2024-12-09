@@ -32,7 +32,7 @@ include 'preis.php';
             <input type="radio" name="speicher" id="speicher" value="4096" onchange="updatePrice()">4096GB <?= $preis = 'CHF '.ceil($preise['speicher']*4096).'.-'?><br><br>
             <input type="radio" name="speicher" id="speicher" value="8192" onchange="updatePrice()">8192GB <?= $preis = 'CHF '.ceil($preise['speicher']*8192).'.-'?><br><br>
             <input type="radio" name="speicher" id="speicher" value="16384" onchange="updatePrice()">16384GB <?= $preis = 'CHF '.ceil($preise['speicher']*16384).'.-'?><br><br>
-            <input type="number" name="speicher_input" id="speicher-input" min="32" max="32768" step="1.0" onchange="updatePrice()">GB <?= $preis = 'CHF '.ceil($preise['speicher']*1).'.-'?>
+            <input type="number" name="speicher_input" id="speicher-input" min="32" max="32768" step="1.0" onchange="updatePrice()">GB 
             <br><br>
         </fieldset>
         <fieldset>
@@ -42,25 +42,55 @@ include 'preis.php';
             <input type="radio" name="ram" id="ram" value="32" onchange="updatePrice()">32GB <?= $preis = 'CHF '.ceil($preise['ram']*32).'.-'?><br><br>
             <input type="radio" name="ram" id="ram" value="64" onchange="updatePrice()">64GB <?= $preis = 'CHF '.ceil($preise['ram']*64).'.-'?><br><br>
             <input type="radio" name="ram" id="ram" value="128" onchange="updatePrice()">128GB <?= $preis = 'CHF '.ceil($preise['ram']*128).'.-'?><br><br>
-            <input type="number" name="ram_input" id="ram-input" min="4" max="256" step="1.0" onchange="updatePrice()">GB <?= $preis = 'CHF '.ceil($preise['ram']*1).'.-'?>  
+            <input type="number" name="ram_input" id="ram-input" min="4" max="256" step="1.0" onchange="updatePrice()">GB 
             <br><br>
         </fieldset>
         <fieldset>
             <script>
                 function updatePrice() {
-                    // Get the values of the radio buttons and number inputs
-                    let speicherValue = document.getElementById('speicher-input').value;
-                    let ramValue = document.getElementById('ram-input').value;
-                    
-                    // You can use these values to update the price
-                    let speicherPrice = speicherValue * <?= $preise['speicher'] ?>;
-                    let ramPrice = ramValue * <?= $preise['ram'] ?>;
-                    
-                    // Display or calculate the total price
-                    let totalPrice = speicherPrice + ramPrice;
-                    document.getElementById('total-price').innerText = 'Total Price: CHF ' + Math.ceil(totalPrice) + '.-';
+                    // Get selected CPU core value
+                    let selectedCores = document.querySelector('input[name="cores"]:checked');
+                    let coresValue = selectedCores ? parseInt(selectedCores.value) : 0;
+
+                    // Get selected Speicher value or custom input
+                    let selectedSpeicher = document.querySelector('input[name="speicher"]:checked');
+                    let customSpeicherInput = document.getElementById('speicher-input').value;
+                    let speicherValue = selectedSpeicher
+                        ? parseInt(selectedSpeicher.value)
+                        : customSpeicherInput
+                        ? parseInt(customSpeicherInput)
+                        : 0;
+
+                    // Get selected RAM value or custom input
+                    let selectedRam = document.querySelector('input[name="ram"]:checked');
+                    let customRamInput = document.getElementById('ram-input').value;
+                    let ramValue = selectedRam
+                        ? parseInt(selectedRam.value)
+                        : customRamInput
+                        ? parseInt(customRamInput)
+                        : 0;
+
+                    // Define prices from PHP (replace these with dynamic values if needed)
+                    let cpuPrice = <?= $preise['cpu'] ?>;      // Price per core
+                    let speicherPrice = <?= $preise['speicher'] ?>;  // Price per GB for storage
+                    let ramPrice = <?= $preise['ram'] ?>;      // Price per GB for RAM
+
+                    // Calculate the total price
+                    let totalPrice = (coresValue * cpuPrice) + (speicherValue * speicherPrice) + (ramValue * ramPrice);
+
+                    // Update the price display
+                    document.getElementById('price-display').innerText = 'CHF ' + Math.ceil(totalPrice) + '.-';
                 }
+                document.querySelectorAll('input[type="number"]').forEach(function (input) {
+                    input.addEventListener('keydown', function (event) {
+                        if (event.key === 'Enter') {
+                            event.preventDefault();
+                        }
+                    });
+                });
+
             </script>
+            <p>Total Price: <span id="price-display">CHF 0.-</span></p> <br>
             <input type="submit" value="Anfrage senden" class="submit">
         </fieldset>
     </form>
