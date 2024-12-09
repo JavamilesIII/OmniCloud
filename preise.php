@@ -1,7 +1,5 @@
 <?php
-include 'server.php';
-
-
+include 'preis.php';
 
 ?>
 <!DOCTYPE html>
@@ -29,7 +27,7 @@ include 'server.php';
                 <li>SSD: 2048GB</li>
                 <li>Preis: <?= $preis = ceil(($preise['cpu']*4) + ($preise['ram']*32) + ($preise['speicher']*2048)); ?> CHF/mo</li>
             </ul>
-            <?php echo "<a href='zahlen.php?preis=".$preis."'>Jetzt kaufen</a>"; ?>
+            <?php echo "<a href='server.php?package=small'>Jetzt kaufen</a>"; ?>
         </div>
         <div class="preise">
             <div class="package-title">
@@ -41,7 +39,7 @@ include 'server.php';
                 <li>SSD: 4096GB</li>
                 <li>Preis: <?= $preis = ceil(($preise['cpu']*8) + ($preise['ram']*64) + ($preise['speicher']*4096)); ?> CHF/mo</li>
             </ul>
-            <?php echo "<a href='zahlen.php?preis=".$preis."'>Jetzt kaufen</a>"; ?>
+            <?php echo "<a href='server.php?package=medium'>Jetzt kaufen</a>"; ?>
         </div>
         <div class="preise">
             <div class="package-title">
@@ -53,7 +51,7 @@ include 'server.php';
                 <li>SSD: 8192GB</li>
                 <li>Preis: <?= $preis = ceil(($preise['cpu']*16) + ($preise['ram']*128) + ($preise['speicher']*8192)); ?> CHF/mo</li>
             </ul>
-            <?php echo "<a href='zahlen.php?preis=".$preis."'>Jetzt kaufen</a>"; ?>
+            <?php echo "<a href='server.php?package=big'>Jetzt kaufen</a>"; ?>
         </div>
         <div class="preise last">
             <div class="package-title">

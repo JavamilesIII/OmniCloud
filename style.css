@@ -1,41 +1,42 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-image: url('omniman.jpeg');
-    background-size: cover;
-    background-attachment: fixed;
-    background-position: center;
+    background-color: #2e3440; /* Dunkles Grau-Blau */
+    color: #d8dee9; /* Helles Grau */
+    line-height: 1.5;
 }
 
-label{
-color: #2c3e50;
+label {
+    color: #88c0d0; /* Klares Türkis */
 }
 
-section{
+section {
     margin: 20px auto;
     max-width: 800px;
-    background: #fff;
+    background: #3b4252; /* Mittelgrau */
     border-radius: 8px;
-    box-shadow: 3px 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 3px 4px 6px rgba(0, 0, 0, 0.2);
     padding: 20px;
 }
-section a{
+
+section a {
     text-decoration: none;
-    color: #000000;
+    color: #88c0d0; /* Türkis */
 }
-form{
+
+form {
     max-width: 600px;
     margin: 20px auto;
-    background: #fff;
+    background: #3b4252; /* Mittelgrau */
     border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     padding: 20px;
 }
 
 nav {
     height: 3vh;
-    background-color: #2c3e50;
+    background-color: #4c566a; /* Dunkleres Grau */
     padding: 10px 20px;
     position: sticky;
     top: 0;
@@ -55,123 +56,150 @@ nav ul li {
 }
 
 nav ul li a {
-    color: white;
+    color: #d8dee9; /* Helles Grau */
     text-decoration: none;
     font-weight: bold;
 }
 
 nav ul li a:hover {
-    
-    background-color: rgb(87, 87, 87);
+    background-color: #5e81ac; /* Gedecktes Blau */
     border-radius: 50px;
-    font-size: 1.1em;
+    font-size: 1em;
     transition: font-size 0.3s;
-   
-    
 }
 
 h1 {
     text-align: center;
     margin-top: 20px;
-    color: #000000;
+    font-size: 2em;
+    color: #d8dee9; /* Helles Grau */
 }
 
 table {
     width: 80%;
     margin: 20px auto;
     border-collapse: collapse;
-    box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
 }
 
 table thead {
-    background-color: #34495e;
-    color: white;
+    background-color: #5e81ac; /* Gedecktes Blau */
+    color: #eceff4; /* Fast Weiß */
 }
 
 table th, table td {
-    padding: 10px;
+    padding: 8px;
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #434c5e; /* Grauton */
 }
 
 table tbody tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #4c566a; /* Dunkleres Grau */
 }
 
 table tbody tr:hover {
-    background-color: #ddd;
+    background-color: #5e81ac; /* Gedecktes Blau */
 }
 
 footer {
-    background-color: #2c3e50;
-    color: white;
+    background-color: #4c566a; /* Dunkleres Grau */
+    color: #d8dee9; /* Helles Grau */
     text-align: center;
-    padding: 10px 0;
+    padding: 10px;
+    font-size: 0.9rem;
     position: fixed;
     width: 100%;
     bottom: 0;
 }
+
 #custom {
     justify-content: center;
 }
+
 #custom fieldset {
     margin: auto 10vw;
     margin-bottom: 3vh;
 }
+
 #preise {
-    columns: 4;
-    column-gap: 2px;
-    justify-items: center;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin: 40px auto;
+    padding: 20px;
+    max-width: 1200px;
 }
+
 .preise {
-    width: 20vw;
-    height: 20vw;
-    overflow: hidden;
-    border-radius: 25px;
-    border: 2px solid black;
-    position: relative;
-}
-.preise p, .preise a {
-    margin: 10px;
-}
-.preise a{
-    position: absolute;
-    width: 17vw;
-    text-decoration: none;
+    flex: 1 1 calc(25% - 20px);
+    max-width: 250px;
+    background: #3b4252; /* Mittelgrau */
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    display: block;
-    background: #4c7298;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 10px;
-    font-size: 1rem;
-    cursor: pointer;
-    bottom: 0;
+    padding: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.preise:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
 }
 
 .package-title {
-    text-align: center;
-    margin: 0;
-    background-color: #4c7298;
-    margin-bottom: 10px;
-    color: white;
-    padding: 10px;
+    font-size: 1.3rem;
+    color: #eceff4; /* Fast Weiß */
+    background-color: #bf616a; /* Mattes Rot */
+    padding: 8px 0;
+    width: 100%;
+    border-radius: 12px 12px 0 0;
 }
 
+.preise p {
+    margin: 10px 0;
+    font-size: 0.9rem;
+    color: #d8dee9; /* Helles Grau */
+}
+
+.preise a {
+    margin-top: auto;
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    background: #a3be8c; /* Sanftes Grün */
+    color: #3b4252; /* Dunkles Grau */
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.preise a:hover {
+    background: #8fbc8f; /* Gedeckteres Grün */
+    transform: scale(1.05);
+}
+
+.preise a:active {
+    background: #3b4252; /* Dunkles Grau */
+    color: #eceff4; /* Fast Weiß */
+}
 
 fieldset {
-    border: 1px solid rgb(212, 242, 41);
+    border: 1px solid #5e81ac; /* Gedecktes Blau */
     border-radius: 8px;
     margin-bottom: 20px;
-    padding: 20px;
+    padding: 15px;
 }
 
 legend {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: bold;
     padding: 0 10px;
-    color: #444;
+    color: #88c0d0; /* Türkis */
 }
 
 input[type="radio"] {
@@ -179,30 +207,39 @@ input[type="radio"] {
 }
 
 input[type="number"] {
-    width: 80px;
+    width: 60px;
     padding: 5px;
     margin-left: 10px;
-    border: 1px solid rgb(223, 88, 88);
+    border: 1px solid #bf616a; /* Mattes Rot */
     border-radius: 4px;
 }
 
 input.submit {
     display: block;
     width: 100%;
-    background: #5dea9c;
-    color: black;
+    background: #88c0d0; /* Türkis */
+    color: #3b4252; /* Dunkles Grau */
     border: none;
     border-radius: 8px;
-    padding: 10px;
-    font-size: 1rem;
+    padding: 8px;
+    font-size: 0.9rem;
     cursor: pointer;
 }
 
 input.submit:hover {
-    background: #4ceab8;
+    background: #81a1c1; /* Gedecktes Blau */
 }
 
 @media (max-width: 768px) {
+    #preise {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .preise {
+        max-width: 90%;
+    }
+
     form {
         padding: 15px;
     }
@@ -212,6 +249,83 @@ input.submit:hover {
     }
 
     input.submit {
-        font-size: 0.9rem;
+        font-size: 0.8rem;
     }
+}
+
+section {
+    margin: 50px auto;
+    max-width: 600px;
+    background: #3b4252; /* Mittelgrau */
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    text-align: center;
+    color: #d8dee9; /* Helles Grau */
+}
+
+.package-title {
+    color: #bf616a; /* Mattes Rot */
+    font-weight: bold;
+}
+
+/* Danke-Bereich */
+.thank-you-section {
+    display: none; /* Standardmäßig versteckt */
+    margin: 20px auto;
+    max-width: 800px;
+    background: #3b4252; /* Mittelgrau */
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    text-align: center;
+    color: #d8dee9; /* Helles Grau */
+}
+
+.thank-you-section h1 {
+    color: #a3be8c; /* Sanftes Grün */
+    font-size: 2em;
+}
+
+.thank-you-section p {
+    color: #d8dee9; /* Helles Grau */
+    font-size: 1rem;
+}
+
+.thank-you-section a {
+    display: inline-block;
+    background: #88c0d0; /* Türkis */
+    color: #3b4252; /* Dunkles Grau */
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.thank-you-section a:hover {
+    background: #81a1c1; /* Gedecktes Blau */
+    transform: scale(1.05);
+}
+
+a.btn {
+    display: inline-block;
+    background: #88c0d0; /* Türkis */
+    color: #3b4252; /* Dunkles Grau */
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-top: 20px;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+a.btn:hover {
+    background: #81a1c1; /* Gedecktes Blau */
+    transform: scale(1.05);
+}
+
+body:empty {
+    display: none;
 }
