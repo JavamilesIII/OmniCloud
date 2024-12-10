@@ -26,7 +26,7 @@ section a {
 }
 
 form {
-    max-width: 600px;
+    max-width: 50vw;
     margin: 20px auto;
     background: #3b4252; /* Mittelgrau */
     border-radius: 8px;
@@ -113,6 +113,7 @@ footer {
 }
 
 #custom {
+    width: 50vw;
     justify-content: center;
 }
 

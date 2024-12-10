@@ -1,7 +1,7 @@
 <?php
     $preise = array(
-        'cpu' => 1,
-        'ram' => 10,
-        'speicher' => 0.2
+        'cpu' => 5,
+        'ram' => 0.01,
+        'ssd' => 0.5
     );
 ?>
