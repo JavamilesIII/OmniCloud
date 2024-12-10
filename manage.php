@@ -9,17 +9,31 @@
 <body>
     <?php include 'header.php'; ?>
     <?php
-    $file = 'hosting.json';
-    $hosts = [];
-    if (file_exists($file)) {
-        $hosts = json_decode(file_get_contents($file), true) ?? [];
+    if (file_exists('hosting.json')) {
+        if($hosts = json_decode(file_get_contents('hosting.json'), true) ?? []){
+            echo "<table id='manage' align ='center'><tr>";
+            echo "<th>CPU Cores</th>";
+            echo "<th>RAM</th>";
+            echo "<th>SSD</th>";
+            echo "<th>Delete</th>";
+            echo "<tr>";
+            $i = 0;
+            foreach ($hosts as $host) {
+                echo "</tr>";
+                echo "<td>{$host['cpu']}</td>";
+                echo "<td>{$host['ram']}</td>";
+                echo "<td>{$host['ssd']}</td>";
+                echo "<td><a href='?deleted=$i' class='delete'>Delete</a></td>";
+                echo "</tr>";
+                $i++;
+            }
+            
+        }
+        else {
+            echo "<p>Keine Daten verfègbar</p>";
+        }
     }
-    foreach ($hosts as $host) {
-        echo print_r($host);
-        echo "<br>";
-        echo $host['cpu'];
-        echo "<br>";
-    }
+    
     ?>
 
     <?php include 'footer.php'; ?>

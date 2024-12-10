@@ -153,13 +153,24 @@ footer {
 
 .package-title {
     font-size: 1.3rem;
-    color: #eceff4; /* Fast Weiß */
     background-color: #bf616a; /* Mattes Rot */
     padding: 8px 0;
     width: 100%;
     border-radius: 12px 12px 0 0;
 }
+span.package-title {
+    font-size: 1.3rem;
+    color: #eceff4; /* Fast Weiß */
+    background-color: #bf616a; /* Mattes Rot */
+    padding: 2px 2px;
+    width: 100%;
+    border-radius: 12px 12px 0 0;
+    overflow: visible;
+}
 
+.package-title h2{
+    color: #eceff4; /* Fast Weiß */
+}
 .preise p {
     margin: 10px 0;
     font-size: 0.9rem;
@@ -360,4 +371,19 @@ a.btn:hover {
 
 body:empty {
     display: none;
+}
+a.delete {
+    text-decoration: none;
+    display: block;
+    width: 30%;
+    background: #88c0d0; /* Türkis */
+    color: #3b4252; /* Dunkles Grau */
+    border: none;
+    border-radius: 8px;
+    padding: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+a.delete:hover{
+    text-decoration: underline;
 }
