@@ -11,7 +11,7 @@ $default_server = array(
 );
 
 
-
+$user = 0;
 $server = json_decode(file_get_contents('server.json'), true) ?? $default_server;
 
 $package_list = array(
@@ -34,9 +34,24 @@ foreach ($server as $index => $values) {
 $min_capacity = array_keys($server_capacity, max($server_capacity))[0];
 
 $selected_package = $_GET['package'] ?? null;
-print_r(array_keys($server_capacity, max($server_capacity)));
 $m = '';
 if (!isset($_SESSION['script_executed'])) {
+    if (file_exists("hosting.json")) {
+        $current_data = json_decode(file_get_contents("hosting.json"), true) ?? [];
+    }
+    if (!empty($current_data)) {
+        // Get the last user's identifier
+        $last_user = end($current_data)['user']; // Assuming 'user' key exists in the data
+        // Extract the number part from the string (e.g., 'user0' -> 0)
+        $user_number = intval(preg_replace('/[^0-9]/', '', $last_user));
+        // Increment the user number
+        $user_number++;
+    } else {
+        // Default to user0 if no data exists
+        $user_number = 0;
+    }
+    $user = "user$user_number";
+    print_r($user);
     while(True){
         $m = "";
         if ($selected_package && isset($package_list[$selected_package])) {
@@ -72,8 +87,10 @@ if (!isset($_SESSION['script_executed'])) {
                 foreach ($package_list[$selected_package] as $key => $value) {
                     $server[$min_capacity][$key] -= $value;
                 }
-                $current_data[] = $selected_config;
+                $current_data[] = array_merge(['user' => $user], $selected_config);
+                
             }
+            var_dump($current_data);
             break;
         }
         
@@ -96,17 +113,15 @@ if (!isset($_SESSION['script_executed'])) {
                 'ssd' => $ssd
             );
             $min_capacity = array_keys($server_capacity, max($server_capacity))[0];
-            echo "Server Index with Min Capacity: " . $min_capacity . "<br>";
-            $current_data = [];
-            if (file_exists("hosting.json")) {
-                $current_data = json_decode(file_get_contents("hosting.json"), true) ?? [];
-            }
+            
+            
         
             if ($server[$min_capacity]['cpu'] >= $cores && $server[$min_capacity]['ram'] >= $ram && $server[$min_capacity]['ssd'] >= $ssd) {
                 $server[$min_capacity]['cpu'] -= $cores;
                 $server[$min_capacity]['ram'] -= $ram;
                 $server[$min_capacity]['ssd'] -= $ssd;
-                $current_data[] = $custom_config;
+                $current_data[] = array_merge(['user' => $user], $custom_config);
+
             } else {
                 $message = "<strong>Error:</strong> Not enough resources available for the custom configuration!<br>";
                 $successful = false;
