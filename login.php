@@ -1,4 +1,5 @@
 <?php
+include 'functions.php';
 $user = "admin";
 $pass = "admin";
 session_start();

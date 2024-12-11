@@ -306,7 +306,17 @@ section {
     text-align: center;
     color: #d8dee9; /* Helles Grau */
 }
+section#manager {
+    width:100%;
+    background: #3b4252; /* Mittelgrau */
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    color: #d8dee9; /* Helles Grau */
 
+}
+#manage{
+    width: 40vw;
+}
 .package-title {
     color: #bf616a; /* Mattes Rot */
     font-weight: bold;
@@ -375,7 +385,7 @@ body:empty {
 a.delete {
     text-decoration: none;
     display: block;
-    width: 30%;
+    width: 10vw;
     background: #88c0d0; /* Türkis */
     color: #3b4252; /* Dunkles Grau */
     border: none;

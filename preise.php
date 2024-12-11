@@ -1,5 +1,6 @@
 <?php
 include 'preis.php';
+include 'functions.php';
 
 ?>
 <!DOCTYPE html>

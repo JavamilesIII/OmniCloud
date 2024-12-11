@@ -1,3 +1,7 @@
+<?php
+include 'functions.php';
+check_login();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +12,14 @@
 </head>
 <body>
     <?php include 'header.php'; ?>
+    <section id="manager">
     <?php
+    if (isset($_GET['deleted'])) {
+        $deletedIndex = intval($_GET['deleted']);
+        deleteHosting($deletedIndex);
+        header('Location: manage.php');
+    }
+    
     if (file_exists('hosting.json')) {
         if($hosts = json_decode(file_get_contents('hosting.json'), true) ?? []){
             echo "<table id='manage' align ='center'><tr>";
@@ -30,14 +41,15 @@
                 $i++;
             }
             
+            echo "</table>";
         }
         else {
-            echo "<p>Keine Daten verfègbar</p>";
+            echo "<p>Keine Daten verfügbar</p>";
         }
     }
     
     ?>
-
+    </section>
     <?php include 'footer.php'; ?>
 </body>
 </html>

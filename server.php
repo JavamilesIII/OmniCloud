@@ -1,5 +1,6 @@
 <?php
 include 'preis.php';
+include 'functions.php';
 session_start();
 
 $successful =true;
@@ -51,7 +52,7 @@ if (!isset($_SESSION['script_executed'])) {
         $user_number = 0;
     }
     $user = "user$user_number";
-    print_r($user);
+    //print_r($user);
     while(True){
         $m = "";
         if ($selected_package && isset($package_list[$selected_package])) {
@@ -90,11 +91,12 @@ if (!isset($_SESSION['script_executed'])) {
                 $current_data[] = array_merge(['user' => $user], $selected_config);
                 
             }
-            var_dump($current_data);
+            //var_dump($current_data);
             break;
         }
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $selected_package = "custom";
             $cores = intval($_POST['cores']);
             $ram = intval($_POST['ram']);
             $ssd = intval($_POST['ssd']);
@@ -112,7 +114,6 @@ if (!isset($_SESSION['script_executed'])) {
                 'ram' => $ram,
                 'ssd' => $ssd
             );
-            $min_capacity = array_keys($server_capacity, max($server_capacity))[0];
             
             
         
@@ -157,13 +158,9 @@ if ($successful != false){
                 <p>Details zum Paket:</p>
                 $m 
                 <p>Wir werden uns in Kürze mit weiteren Details bei Ihnen melden.</p>
-                <a href='?exit=1' class='btn'>Zurück zur Startseite</a>
+                <a href='index.php?exit=1' class='btn'>Zurück zur Startseite</a>
 
             </section>";
-}
-if (isset($_GET['exit'])) {
-    session_destroy();
-    header('Location: index.php');
 }
 ?>
 
