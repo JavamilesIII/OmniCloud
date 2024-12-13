@@ -17,15 +17,21 @@ include 'functions.php';
     <section>
         <h2>Kontaktieren Sie uns</h2>
         <form action="send_contact.php" method="post">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-            <br>
-            <label for="email">E-Mail:</label>
-            <input type="email" id="email" name="email" required>
-            <br>
-            <label for="message">Nachricht:</label>
-            <textarea id="message" name="message" rows="5" required></textarea>
-            <br>
+            <table id="contact">
+                <tr>
+                    <td><label for="name">Name:</label></td>
+                    <td><input type="text" id="name" name="name" required></td>
+                </tr>
+                <tr>
+                    <td><label for="email">E-Mail:</label></td>
+                    <td><input type="email" id="email" name="email" required></td>
+                </tr>
+                <tr>
+                    <td><label for="message">Nachricht:</label></td>
+                    <td><textarea id="message" name="message" rows="5" required></textarea></td>
+                </tr>
+            </table>
+        
             <button type="submit">Senden</button>
         </form>
     </section>

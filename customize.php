@@ -10,6 +10,42 @@ include 'preis.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Omnicloud</title>
     <link rel="stylesheet" href="style.css">
+    <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    function updatePrice() {
+                        // Get selected CPU core value
+                        let selectedCores = document.querySelector('input[name="cores"]:checked');
+                        let coresValue = selectedCores ? parseInt(selectedCores.value) : 0;
+
+                        // Get selected SSD value
+                        let selectedSSD = document.querySelector('input[name="ssd"]:checked');
+                        let ssdValue = selectedSSD ? parseInt(selectedSSD.value) : 0;
+
+                        // Get selected RAM value
+                        let selectedRam = document.querySelector('input[name="ram"]:checked');
+                        let ramValue = selectedRam ? parseInt(selectedRam.value) : 0;
+
+                        // Define prices from PHP
+                        let cpuPrice = <?= $preise['cpu'] ?>; // Price per core
+                        let ssdPrice = <?= $preise['ssd'] ?>; // Price per GB for SSD
+                        let ramPrice = <?= $preise['ram'] ?>; // Price per MB for RAM
+
+                        // Calculate the total price
+                        let totalPrice = (coresValue * cpuPrice) + (ssdValue * ssdPrice) + (ramValue * ramPrice);
+
+                        // Update the price display
+                        document.getElementById('price-display').innerText = 'CHF ' + Math.ceil(totalPrice) + '.-';
+                    }
+
+                    // Run the function once on page load
+                    updatePrice();
+
+                    // Attach event listeners to update the price dynamically
+                    document.querySelectorAll('input[name="cores"], input[name="ram"], input[name="ssd"]').forEach(function (input) {
+                        input.addEventListener('change', updatePrice);
+                    });
+                });
+            </script>
 </head>
 <body>
     <?php include 'header.php'; ?>
@@ -23,6 +59,7 @@ include 'preis.php';
             <input type="radio" name="cores" id="cores" value="4" onchange="updatePrice()">4 Cores <?= $preis = 'CHF '.ceil($preise['cpu']*4).'.-'?><br>
             <input type="radio" name="cores" id="cores" value="8" onchange="updatePrice()">8 Cores <?= $preis = 'CHF '.ceil($preise['cpu']*8).'.-'?><br>
             <input type="radio" name="cores" id="cores" value="16" onchange="updatePrice()">16 Cores <?= $preis = 'CHF '.ceil($preise['cpu']*16).'.-'?><br>
+            
         </fieldset>
         <fieldset>
             <legend>Arbeitsspeicher (RAM)</legend>
@@ -34,7 +71,7 @@ include 'preis.php';
             <input type="radio" name="ram" id="ram" value="16384" onchange="updatePrice()">16384MB <?= $preis = 'CHF '.ceil($preise['ram']*16384).'.-'?><br><br>
             <input type="radio" name="ram" id="ram" value="32768" onchange="updatePrice()">32768MB <?= $preis = 'CHF '.ceil($preise['ram']*32768).'.-'?><br><br>
             <!--<input type="number" name="ram_input" id="ram-input" min="4" max="256" step="1.0" onchange="updatePrice()">GB -->
-            <br><br>
+            
         </fieldset>
         <fieldset>
             <legend>SSD</legend>
@@ -46,56 +83,9 @@ include 'preis.php';
             <input type="radio" name="ssd" id="ssd" value="500" onchange="updatePrice()">500GB <?= $preis = 'CHF '.ceil($preise['ssd']*500).'.-'?><br><br>
             <input type="radio" name="ssd" id="ssd" value="1000" onchange="updatePrice()">1000GB <?= $preis = 'CHF '.ceil($preise['ssd']*1000).'.-'?><br><br>
             <!--<input type="number" name="ssd_input" id="ssd-input" min="32" max="32768" step="1.0" onchange="updatePrice()">GB -->
-            <br><br>
+            
         </fieldset>
         <fieldset>
-            <script>
-                function updatePrice() {
-                    // Get selected CPU core value
-                    let selectedCores = document.querySelector('input[name="cores"]:checked');
-                    let coresValue = selectedCores ? parseInt(selectedCores.value) : 0;
-
-                    // Get selected ssd value or custom input
-                    let selectedSSD = document.querySelector('input[name="ssd"]:checked');
-                    let ssdValue = selectedSSD ? parseInt(selectedSSD.value) : 0;
-                    
-                    //let customssdInput = document.getElementById('ssd-input').value;
-                    /*let ssdValue = selectedssd
-                        ? parseInt(selectedssd.value)
-                        : customssdInput
-                        ? parseInt(customssdInput)
-                        : 0;*/
-
-                    // Get selected RAM value or custom input
-                    let selectedRam = document.querySelector('input[name="ram"]:checked');
-                    let ramValue = selectedRam ? parseInt(selectedRam.value) : 0;
-                    //let customRamInput = document.getElementById('ram-input').value;
-                    /*let ramValue = selectedRam
-                        ? parseInt(selectedRam.value)
-                        : customRamInput
-                        ? parseInt(customRamInput)
-                        : 0*/;
-
-                    // Define prices from PHP (replace these with dynamic values if needed)
-                    let cpuPrice = <?= $preise['cpu'] ?>;      // Price per core
-                    let ssdPrice = <?= $preise['ssd'] ?>;  // Price per GB for storage
-                    let ramPrice = <?= $preise['ram'] ?>;      // Price per GB for RAM
-
-                    // Calculate the total price
-                    let totalPrice = (coresValue * cpuPrice) + (ssdValue * ssdPrice) + (ramValue * ramPrice);
-
-                    // Update the price display
-                    document.getElementById('price-display').innerText = 'CHF ' + Math.ceil(totalPrice) + '.-';
-                }
-                /*document.querySelectorAll('input[type="number"]').forEach(function (input) {
-                    input.addEventListener('keydown', function (event) {
-                        if (event.key === 'Enter') {
-                            event.preventDefault();
-                        }
-                    });
-                });*/
-
-            </script>
             <p>Total Price: <span id="price-display">CHF 0.-</span></p> <br>
             <input type="submit" value="Anfrage senden" class="submit">
         </fieldset>

@@ -66,7 +66,7 @@ if (!isset($_SESSION['script_executed'])) {
             if(($server[$min_capacity]['cpu'] < $cores) || ($server[$min_capacity]['ram'] < $ram) || ($server[$min_capacity]['ssd'] < $ssd)){
                 $min_capacity++;
                 if($min_capacity>2){
-                    $message = "<strong>Error:</strong> Not enough resources available!<br>";
+                    $message1 = "<strong>Error:</strong> Nicht genügend Ressourcen zur Verfügung!<br>";
                     $successful = false;
                     break;
                 }
@@ -79,7 +79,7 @@ if (!isset($_SESSION['script_executed'])) {
             foreach ($package_list[$selected_package] as $key => $value) {
                 if ($server[$min_capacity][$key] < $value) {
                     $can_allocate = false;
-                    $message = "<strong>Error:</strong> Not enough resources available!<br>";
+                    $message1 = "<strong>Error:</strong> Nicht genügend Ressourcen zur Verfügung!<br>";
                     $successful = false;
                     break;
                 }
@@ -103,7 +103,7 @@ if (!isset($_SESSION['script_executed'])) {
             if(($server[$min_capacity]['cpu'] < $cores) || ($server[$min_capacity]['ram'] < $ram) || ($server[$min_capacity]['ssd'] < $ssd)){
                 $min_capacity++;
                 if($min_capacity>2){
-                    $message = "<strong>Error:</strong> Not enough resources available!<br>";
+                    $message1 = "<strong>Error:</strong> Nicht genügend Ressourcen zur Verfügung!<br>";
                     $successful = false;
                     break;
                 }
@@ -124,7 +124,7 @@ if (!isset($_SESSION['script_executed'])) {
                 $current_data[] = array_merge(['user' => $user], $custom_config);
 
             } else {
-                $message = "<strong>Error:</strong> Not enough resources available for the custom configuration!<br>";
+                $message1 = "<strong>Error:</strong> Nicht genügend Ressourcen zur Verfügung!<br>";
                 $successful = false;
             }
             break;
@@ -137,7 +137,8 @@ if (!isset($_SESSION['script_executed'])) {
 
 if(!empty($current_data)){
     if (file_put_contents('hosting.json', json_encode($current_data, JSON_PRETTY_PRINT)) === false) {
-        die("<strong>Error:</strong> Unable to write to hosting.json");
+        $message1="<strong>Error:</strong> Kann nicht in hosting.json schreiben!";
+        die;
     }
 }
 
@@ -151,17 +152,22 @@ else {
 }
 if ($successful != false){
     $package_title = htmlspecialchars($selected_package);
-    $message = "
-            <section>
+    $message1 = "
                 <h1>Vielen Dank für Ihre Bestellung!</h1>
                 <p>Sie haben das <span class='package-title'>".strtoupper($package_title)."</span> Paket gewählt.</p>
                 <p>Details zum Paket:</p>
+                <p>Benutzer: $user</p>
+                <br>
                 $m 
-                <p>Wir werden uns in Kürze mit weiteren Details bei Ihnen melden.</p>
-                <a href='index.php?exit=1' class='btn'>Zurück zur Startseite</a>
-
-            </section>";
+                <p>Wir werden uns in Kürze mit weiteren Details bei Ihnen melden.</p>";
 }
+$message = "
+        <section>
+            $message1
+            
+            <a href='index.php?exit=1' class='btn'>Zurück zur Startseite</a>
+        </section>
+"
 ?>
 
 

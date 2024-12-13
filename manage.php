@@ -33,9 +33,9 @@ check_login();
             foreach ($hosts as $host) {
                 echo "</tr>";
                 echo "<td>{$host['user']}</td>";
-                echo "<td>{$host['cpu']}</td>";
-                echo "<td>{$host['ram']}</td>";
-                echo "<td>{$host['ssd']}</td>";
+                echo "<td>{$host['cpu']} Kerne</td>";
+                echo "<td>{$host['ram']} MB</td>";
+                echo "<td>{$host['ssd']} GB</td>";
                 echo "<td><a href='?deleted=$i' class='delete'>Delete</a></td>";
                 echo "</tr>";
                 $i++;
