@@ -1,9 +1,9 @@
 [
     {
         "name": "small",
-        "ssd": 4000,
-        "ram": 32768,
-        "cpu": 4
+        "ssd": 3760,
+        "ram": 0,
+        "cpu": 0
     },
     {
         "name": "medium",

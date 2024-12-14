@@ -13,34 +13,33 @@ include 'preis.php';
     <script>
                 document.addEventListener("DOMContentLoaded", function () {
                     function updatePrice() {
-                        // Get selected CPU core value
                         let selectedCores = document.querySelector('input[name="cores"]:checked');
                         let coresValue = selectedCores ? parseInt(selectedCores.value) : 0;
 
-                        // Get selected SSD value
+                        
                         let selectedSSD = document.querySelector('input[name="ssd"]:checked');
                         let ssdValue = selectedSSD ? parseInt(selectedSSD.value) : 0;
 
-                        // Get selected RAM value
+                        
                         let selectedRam = document.querySelector('input[name="ram"]:checked');
                         let ramValue = selectedRam ? parseInt(selectedRam.value) : 0;
 
-                        // Define prices from PHP
-                        let cpuPrice = <?= $preise['cpu'] ?>; // Price per core
-                        let ssdPrice = <?= $preise['ssd'] ?>; // Price per GB for SSD
-                        let ramPrice = <?= $preise['ram'] ?>; // Price per MB for RAM
+                        
+                        let cpuPrice = <?= $preise['cpu'] ?>; 
+                        let ssdPrice = <?= $preise['ssd'] ?>; 
+                        let ramPrice = <?= $preise['ram'] ?>; 
 
-                        // Calculate the total price
+                        
                         let totalPrice = (coresValue * cpuPrice) + (ssdValue * ssdPrice) + (ramValue * ramPrice);
 
-                        // Update the price display
+                        
                         document.getElementById('price-display').innerText = 'CHF ' + Math.ceil(totalPrice) + '.-';
                     }
 
-                    // Run the function once on page load
+                   
                     updatePrice();
 
-                    // Attach event listeners to update the price dynamically
+                    
                     document.querySelectorAll('input[name="cores"], input[name="ram"], input[name="ssd"]').forEach(function (input) {
                         input.addEventListener('change', updatePrice);
                     });

@@ -15,7 +15,6 @@ function deleteHosting($index) {
 
     $daten = $current_data[$index];
 
-    // Attempt to find a server with capacity to restore the resources
     for ($min_capacity = 0; $min_capacity < count($server); $min_capacity++) {
         $can_restore = true;
 
@@ -30,15 +29,14 @@ function deleteHosting($index) {
             foreach (['cpu', 'ram', 'ssd'] as $resource) {
                 $server[$min_capacity][$resource] += $daten[$resource];
             }
-            unset($current_data[$index]); // Remove the specific hosting entry
+            unset($current_data[$index]); 
             file_put_contents('server.json', json_encode($server, JSON_PRETTY_PRINT));
-            file_put_contents('hosting.json', json_encode(array_values($current_data), JSON_PRETTY_PRINT)); // Re-index
+            file_put_contents('hosting.json', json_encode(array_values($current_data), JSON_PRETTY_PRINT)); 
             return;
         }
     }
-
-    // If no server can accommodate the resources
-    die("Error: Too many resources to restore!");
+    echo "<p>Error: Zu viele Ressourcen für die Wiederherstellung!</p>";
+    die;
 }
 function logout(){
     if (session_status() === PHP_SESSION_NONE) {

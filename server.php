@@ -33,6 +33,9 @@ foreach ($server as $index => $values) {
 }
 
 $min_capacity = array_keys($server_capacity, max($server_capacity))[0];
+$cores = 0;
+$ram = 0;
+$ssd = 0;
 
 $selected_package = $_GET['package'] ?? null;
 $m = '';
@@ -41,96 +44,104 @@ if (!isset($_SESSION['script_executed'])) {
         $current_data = json_decode(file_get_contents("hosting.json"), true) ?? [];
     }
     if (!empty($current_data)) {
-        // Get the last user's identifier
-        $last_user = end($current_data)['user']; // Assuming 'user' key exists in the data
-        // Extract the number part from the string (e.g., 'user0' -> 0)
+        $last_user = end($current_data)['user'];
         $user_number = intval(preg_replace('/[^0-9]/', '', $last_user));
-        // Increment the user number
         $user_number++;
     } else {
-        // Default to user0 if no data exists
         $user_number = 0;
     }
     $user = "user$user_number";
-    //print_r($user);
-    while(True){
-        $m = "";
-        if ($selected_package && isset($package_list[$selected_package])) {
-            
-            foreach ($package_list[$selected_package] as $key => $value) {
-                $m .= $key . ": " . $value . "<br>";
-            }
-            $cores = $package_list[$selected_package]['cpu'];
-            $ram = $package_list[$selected_package]['ram'];
-            $ssd = $package_list[$selected_package]['ssd'];
-            if(($server[$min_capacity]['cpu'] < $cores) || ($server[$min_capacity]['ram'] < $ram) || ($server[$min_capacity]['ssd'] < $ssd)){
-                $min_capacity++;
-                if($min_capacity>2){
-                    $message1 = "<strong>Error:</strong> Nicht genügend Ressourcen zur Verfügung!<br>";
-                    $successful = false;
-                    break;
-                }
-                continue;
-            }
-            $selected_config = $package_list[$selected_package];
-            
+    $total_available_cpu = 0;
+    $total_available_ram = 0;
+    $total_available_ssd = 0;
 
-            $can_allocate = true;
-            foreach ($package_list[$selected_package] as $key => $value) {
-                if ($server[$min_capacity][$key] < $value) {
-                    $can_allocate = false;
-                    $message1 = "<strong>Error:</strong> Nicht genügend Ressourcen zur Verfügung!<br>";
-                    $successful = false;
-                    break;
-                }
-            }
-            if ($can_allocate) {
-                foreach ($package_list[$selected_package] as $key => $value) {
-                    $server[$min_capacity][$key] -= $value;
-                }
-                $current_data[] = array_merge(['user' => $user], $selected_config);
-                
-            }
-            //var_dump($current_data);
-            break;
-        }
-        
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $selected_package = "custom";
-            $cores = intval($_POST['cores']);
-            $ram = intval($_POST['ram']);
-            $ssd = intval($_POST['ssd']);
-            if(($server[$min_capacity]['cpu'] < $cores) || ($server[$min_capacity]['ram'] < $ram) || ($server[$min_capacity]['ssd'] < $ssd)){
-                $min_capacity++;
-                if($min_capacity>2){
-                    $message1 = "<strong>Error:</strong> Nicht genügend Ressourcen zur Verfügung!<br>";
-                    $successful = false;
-                    break;
-                }
-                continue;
-            }
-            $custom_config = array(
-                'cpu' => $cores,
-                'ram' => $ram,
-                'ssd' => $ssd
-            );
-            
-            
-        
-            if ($server[$min_capacity]['cpu'] >= $cores && $server[$min_capacity]['ram'] >= $ram && $server[$min_capacity]['ssd'] >= $ssd) {
-                $server[$min_capacity]['cpu'] -= $cores;
-                $server[$min_capacity]['ram'] -= $ram;
-                $server[$min_capacity]['ssd'] -= $ssd;
-                $current_data[] = array_merge(['user' => $user], $custom_config);
-
-            } else {
-                $message1 = "<strong>Error:</strong> Nicht genügend Ressourcen zur Verfügung!<br>";
-                $successful = false;
-            }
-            break;
-        }
+    foreach ($server as $s) {
+        $total_available_cpu += $s['cpu'];
+        $total_available_ram += $s['ram'];
+        $total_available_ssd += $s['ssd'];
     }
-    $_SESSION['script_executed']=true;
+
+    if ($cores > $total_available_cpu || $ram > $total_available_ram || $ssd > $total_available_ssd) {
+        $message1 = "<strong>Error:</strong> Angeforderte Ressourcen übersteigen die Gesamtkapazität des Systems!<br>";
+        $successful = false;
+    } else {
+        while(True){
+            $m = "";
+            if ($selected_package && isset($package_list[$selected_package])) {
+            
+                foreach ($package_list[$selected_package] as $key => $value) {
+                    $m .= $key . ": " . $value . "<br>";
+                }
+                $cores = $package_list[$selected_package]['cpu'];
+                $ram = $package_list[$selected_package]['ram'];
+                $ssd = $package_list[$selected_package]['ssd'];
+                if(($server[$min_capacity]['cpu'] < $cores) || ($server[$min_capacity]['ram'] < $ram) || ($server[$min_capacity]['ssd'] < $ssd)){
+                    $min_capacity++;
+                    if($min_capacity>2){
+                        $message1 = "<strong>Error:</strong> Nicht genügend Ressourcen zur Verfügung!<br>";
+                        $successful = false;
+                        break;
+                    }
+                    continue;
+                }
+                $selected_config = $package_list[$selected_package];
+            
+
+                $can_allocate = true;
+                foreach ($package_list[$selected_package] as $key => $value) {
+                    if ($server[$min_capacity][$key] < $value) {
+                        $can_allocate = false;
+                        $message1 = "<strong>Error:</strong> Nicht genügend Ressourcen zur Verfügung!<br>";
+                        $successful = false;
+                        break;
+                    }
+                }
+                if ($can_allocate) {
+                    foreach ($package_list[$selected_package] as $key => $value) {
+                        $server[$min_capacity][$key] -= $value;
+                    }
+                    $current_data[] = array_merge(['user' => $user], $selected_config);
+                
+                }
+                break;
+            }
+        
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $selected_package = "custom";
+                $cores = intval($_POST['cores']);
+                $ram = intval($_POST['ram']);
+                $ssd = intval($_POST['ssd']);
+                if(($server[$min_capacity]['cpu'] < $cores) || ($server[$min_capacity]['ram'] < $ram) || ($server[$min_capacity]['ssd'] < $ssd)){
+                    $min_capacity++;
+                    if($min_capacity>2){
+                        $message1 = "<strong>Error:</strong> Nicht genügend Ressourcen zur Verfügung!<br>";
+                        $successful = false;
+                        break;
+                    }
+                    continue;
+                }
+                $custom_config = array(
+                    'cpu' => $cores,
+                    'ram' => $ram,
+                    'ssd' => $ssd
+                );
+            
+            
+        
+                if ($server[$min_capacity]['cpu'] >= $cores && $server[$min_capacity]['ram'] >= $ram && $server[$min_capacity]['ssd'] >= $ssd) {
+                    $server[$min_capacity]['cpu'] -= $cores;
+                    $server[$min_capacity]['ram'] -= $ram;
+                    $server[$min_capacity]['ssd'] -= $ssd;
+                    $current_data[] = array_merge(['user' => $user], $custom_config);
+
+                } else {
+                    $message1 = "<strong>Error:</strong> Nicht genügend Ressourcen zur Verfügung!<br>";
+                    $successful = false;
+                }
+                break;
+            }
+        }
+    }    $_SESSION['script_executed']=true;
     
 }
 

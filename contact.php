@@ -34,7 +34,7 @@ include 'functions.php';
         
             <button type="submit">Senden</button>
         </form>
-    </section>
+    </section>  
     <?php include 'footer.php'; ?>
 </body>
 </html>
