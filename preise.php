@@ -28,7 +28,7 @@ include 'functions.php';
                 <li>SSD: 20GB</li>
                 <li>Preis: <?= $preis = ceil(($preise['cpu']*1) + ($preise['ram']*8192) + ($preise['ssd']*20)); ?> CHF/mo</li>
             </ul>
-            <?php echo "<a href='server.php?package=small'>Jetzt kaufen</a>"; ?>
+            <?php echo "<a href='action.php?package=small'>Jetzt kaufen</a>"; ?>
         </div>
         <div class="preise">
             <div class="package-title">
@@ -40,7 +40,7 @@ include 'functions.php';
                 <li>SSD: 80GB</li>
                 <li>Preis: <?= $preis = ceil(($preise['cpu']*2) + ($preise['ram']*16384) + ($preise['ssd']*80)); ?> CHF/mo</li>
             </ul>
-            <?php echo "<a href='server.php?package=medium'>Jetzt kaufen</a>"; ?>
+            <?php echo "<a href='action.php?package=medium'>Jetzt kaufen</a>"; ?>
         </div>
         <div class="preise">
             <div class="package-title">
@@ -52,7 +52,7 @@ include 'functions.php';
                 <li>SSD: 240GB</li>
                 <li>Preis: <?= $preis = ceil(($preise['cpu']*4) + ($preise['ram']*32768) + ($preise['ssd']*240)); ?> CHF/mo</li>
             </ul>
-            <?php echo "<a href='server.php?package=big'>Jetzt kaufen</a>"; ?>
+            <?php echo "<a href='action.php?package=big'>Jetzt kaufen</a>"; ?>
         </div>
         <div class="preise last">
             <div class="package-title">

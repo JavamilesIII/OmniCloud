@@ -50,7 +50,7 @@ include 'preis.php';
     <?php include 'header.php'; ?>
         <h1>Omnicloud</h1>
     <p></p>
-    <form action="server.php" method="post" id="custom">
+    <form action="action.php" method="post" id="custom">
         <fieldset>
             <legend>CPU Cores</legend>
             <input type="radio" name="cores" id="cores" value="1" checked="checked" onchange="updatePrice()">1 Core <?= $preis = 'CHF '.ceil($preise['cpu']*1).'.-'?><br> 

@@ -35,7 +35,10 @@ function deleteHosting($index) {
             return;
         }
     }
-    echo "<p>Error: Zu viele Ressourcen für die Wiederherstellung!</p>";
+    echo "
+    <p>Error: Zu viele Ressourcen für die Wiederherstellung!</p>
+    <a href='manage.php'>Zurück</a>
+    ";
     die;
 }
 function logout(){

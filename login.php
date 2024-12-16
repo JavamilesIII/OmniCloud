@@ -30,10 +30,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <legend>Login</legend>
             <div class="login">
                 <label for="username">Username:</label><br>
-                <input type="text" name="username" required>
+                <input type="text" name="username" required autocomplete="off">
                 <br>
                 <label for="password">Password:</label><br>
-                <input type="password" name="password" required>
+                <input type="password" name="password" required autocomplete="off">
             </div>
             <br>
             <br>

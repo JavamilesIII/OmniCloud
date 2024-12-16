@@ -15,7 +15,8 @@ include 'functions.php';
         <h1>Unsere Dienstleistungen</h1>
     </header>
     <section>
-        <h2><a href="preise.php">Cloud-Hosting</a></h2>
+        <label for="cloud-hosting"></label>
+        <h2><a href="preise.php"class="label-link">Cloud-Hosting</a></h2>
         <p>Wir bieten zuverlässiges und skalierbares Cloud-Hosting für Ihre Anwendungen und Websites.</p>
     </section>
     <section>

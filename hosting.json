@@ -1,6 +1,7 @@
 [
     {
-        "user": "user0",
+        "name": "Loic",
+        "email": "loic.matthey@stud.edubs.ch",
         "cpu": 4,
         "ram": 32768,
         "ssd": 240
